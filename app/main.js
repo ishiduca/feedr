@@ -24,3 +24,4 @@ keyAct
     .on('a', 'go to prev feed',            api.main.prevFeed)
     .on('p', 'do "pin" or "un-pin"',       api.main.pin)
     .on('v', 'open link of current entry', api.main.open_tab)
+    .on('h', 'show help', api.help.bind(keyAct.helpStrs))
