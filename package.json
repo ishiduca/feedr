@@ -1,0 +1,57 @@
+{
+  "name": "feedr",
+  "version": "0.0.1",
+  "scripts": {
+    "test": "tap t/*.js",
+    "testling" : "browserify app/t/*.js | testling",
+    "build": "browserify -t ractivate ./app/main.js -o ./public/js/bundle.js",
+    "app": "npm run build && NODE_PATH=lib node app.js &"
+  },
+  "dependencies": {
+    "feedparser": "^0.19.2",
+    "filed": "^0.1.0",
+    "hogan.js": "^3.0.2",
+    "leveldown": "^0.10.2",
+    "levelup": "^0.19.0",
+    "localstorage-down": "^0.6.3",
+    "opmlparser": "^0.7.0",
+    "ractivate": "^0.2.0",
+    "ractive": "^0.6.1",
+    "request": "^2.47.0",
+    "slenderr": "^0.1.1",
+    "sockjs": "^0.3.10"
+  },
+  "config": {
+    "server": {
+      "port": 3210
+    },
+    "mainpage": {
+      "css": [
+        "http://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css",
+        "/css/app.css"
+      ],
+      "bundle_js": "/js/bundle.js"
+    },
+    "sockjs": {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/0.3.4/sockjs.min.js",
+      "prefix": "/echo"
+    },
+    "crawler": {
+      "export_xml": "./source/export.xml",
+      "ignore_txt": "./source/ignore.txt",
+      "semaphore": {
+        "lock": 3
+      },
+      "request": {
+        "access": "./logs/access.log",
+        "error": "./logs/error.log",
+        "timeout": 5000,
+        "interval": 1200
+      },
+      "db": "./source/mydb"
+    }
+  },
+  "devDependencies": {
+    "tape": "^3.0.2"
+  }
+}

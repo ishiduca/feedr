@@ -1,0 +1,40 @@
+<div id="pointer" class="meta">
+    {{#pointer}}
+        [ <span class="count">{{ posCurrentEntry + 1 }}</span> /
+          <span class="count">{{ countCurrentEntries }}</span> |
+          <span class="count">{{ posFeed + 1}}</span> /
+          <span class="count">{{ countFeeds }}</span> ]
+    {{/pointer}}
+    {{^pointer}}
+        <span class="count">[none]</span>
+    {{/pointer}}
+</div>
+
+<div id="current">
+    {{#current}}
+        <header class="{{ isPin ? 'pin' : 'un-pin' }}">
+            <h3>{{ meta.title || xmlurl }}</h3>
+            <ul>
+                <li>date: {{date}}</li>
+                <li>xmlurl: {{xmlurl}}</li>
+                <li>parmalink: {{link}}</li>
+            </ul>
+        </header>
+        <div>
+            <h2>{{title}}</h2>
+            <div>{{{description}}}</div>
+        </div>
+    {{/current}}
+    {{^current}}
+        <p class="empty">:(</p>
+    {{/current}}
+</div>
+
+<div id="feedlist" class="meta">
+    {{#feedlist}}
+        <div>{{.}}</div>
+    {{/feedlist}}
+    {{^feedlist}}
+        <p class="empty">no feeds...</p>
+    {{/feedlist}}
+</div>

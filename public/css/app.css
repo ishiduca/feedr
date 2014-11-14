@@ -1,0 +1,84 @@
+.meta {
+    text-align : right;
+}
+
+#header {
+    position : fixed;
+    top  : 0;
+    text-align : right;
+    width  : 100%;
+    margin : 0;
+    padding : 0;
+}
+
+#crawler-state {
+    display : inline-block;
+    font-size : 12pt;
+    color : #0077dd;
+    background-color: #ffffff;
+    border-radius : 6px;
+    padding : 3px;
+    margin : 0;
+}
+#header>h1 {
+    display : inline-block;
+    font-size : 18pt;
+    color : #00aaff;
+    background-color: #ffffff;
+    border-radius : 6px;
+    padding : 3px;
+    margin : 0;
+}
+
+#pointer {
+    position : fixed;
+    top : 22pt;
+    width : 100%;
+}
+#pointer .count {
+    display : inline-block;
+    font-size : 10pt;
+    font-weight : bold;
+}
+
+/*  */
+#current {
+    text-align : left;
+}
+#current>header.pin {
+    background-color : #ffccaa;
+}
+#current>header.un-pin {
+    background-color : #ffffff;
+}
+#current>header, #current>div {
+    margin : 0;
+    padding : 6px;
+}
+#current>header>h3 {
+    margin : 0;
+    padding : 0;
+    font-size : 20pt;
+}
+#current>div>h2 {
+    margin : 0;
+    padding : 0;
+    font-size 18pt;
+}
+#current>div>div {
+    margin : 0;
+    padding : 12px 0 240px 0;
+}
+/*  */
+#feedlist {
+    position : fixed;
+    bottom : 0;
+    width : 100%;
+    height : 4.5em;
+    border-top : 1px solid #003366;
+    background-color : #ffffff;
+    opacity : .75;
+}
+#feedlist div {
+    font-size : 12pt;
+}
