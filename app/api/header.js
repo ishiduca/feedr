@@ -6,6 +6,7 @@ var ract  = new Ractive({
   , template: require('../view/header.html')
   , data: {
         title: title
+      , crawlerState: 'press "r" to crawling'
     }
 })
 

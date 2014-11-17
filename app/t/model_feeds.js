@@ -1,8 +1,9 @@
 var test = require('tape').test
 var api  = require('../model')
 
-test('can use api.feeds', function (t) {
-    t.ok(api.feeds.feedIndexList, 'ok api.feeds.feedIndexList')
+test('can use api.Feeds', function (t) {
+    t.ok(api.Feeds.prototype.pushEntry
+      , 'ok api.Feeds.prototype.pushEntry')
     t.end()
 })
 
@@ -306,12 +307,5 @@ test('.grepEntriesIndexList(length)', function (t) {
 })
 
 function setup () {
-    return Object.create(api.feeds, {
-        feedList: {
-            value: {}
-        }
-      , feedIndexList: {
-            value: []
-        }
-    })
+    return new api.Feeds
 }

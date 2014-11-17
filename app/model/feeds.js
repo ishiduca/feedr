@@ -1,27 +1,23 @@
 'use strict'
 
-var m = {}
-
-function constructor () {
+function Feeds () {
     this.feedList = {}
     this.feedIndexList = []
 }
+//feeds.currentEntryIndex  // @number : entry index in current feed
+//feeds.currentFeedIndex   // @number : feed index in all feeds
+//feeds.feedList      = {} // @hash : { xmlurl : [ entry, ... ] }
+//feeds.feedIndexList = [] // @arry : [ xmlurl, ... ]
 
-//m.currentEntryIndex  // @number : entry index in current feed
-//m.currentFeedIndex   // @number : feed index in all feeds
-//m.feedList      = {} // @hash : { xmlurl : [ entry, ... ] }
-//m.feedIndexList = [] // @arry : [ xmlurl, ... ]
-
-
-m.currentFeed = function () {
+Feeds.prototype.currentFeed = function () {
    return this.feedList[ this.feedIndexList[ this.currentFeedIndex ] ]
 }
-m.currentEntry = function () {
+Feeds.prototype.currentEntry = function () {
     var currentFeed = this.currentFeed()
     return currentFeed[this.currentEntryIndex]
 }
 
-m.pushEntry = function (entry) {
+Feeds.prototype.pushEntry = function (entry) {
     if (0 === this.feedIndexList.length) {
         this.currentFeedIndex  = 0
         this.currentEntryIndex = 0
@@ -37,19 +33,18 @@ m.pushEntry = function (entry) {
     return this
 }
 
-m.countFeeds = function () {
+Feeds.prototype.countFeeds = function () {
     return this.feedIndexList.length
 }
-m.countCurrentEntries = function () {
+Feeds.prototype.countCurrentEntries = function () {
     return this.currentFeed().length
 }
-m.posFeed = function () {
+Feeds.prototype.posFeed = function () {
     return this.currentFeedIndex
 }
-m.posCurrentEntry = function () {
+Feeds.prototype.posCurrentEntry = function () {
     return this.currentEntryIndex
 }
-
 
 function changeFeed (n) {
     var next = this.currentFeedIndex + n
@@ -58,11 +53,11 @@ function changeFeed (n) {
     this.currentEntryIndex = 0
 }
 
-m.nextFeed = function () {
+Feeds.prototype.nextFeed = function () {
     changeFeed.apply(this, [1])
     return this
 }
-m.prevFeed = function () {
+Feeds.prototype.prevFeed = function () {
     changeFeed.apply(this, [-1])
     return this
 }
@@ -74,16 +69,16 @@ function changeEntry (n) {
     this.currentEntryIndex = next % currentFeed.length
 }
 
-m.nextEntry = function () {
+Feeds.prototype.nextEntry = function () {
     changeEntry.apply(this, [1])
     return this
 }
-m.prevEntry = function () {
+Feeds.prototype.prevEntry = function () {
     changeEntry.apply(this, [-1])
     return this
 }
 
-m.grepFeedIndexList = function (len) {
+Feeds.prototype.grepFeedIndexList = function (len) {
     var me = this
 
     if (!(len > 0)) return allList()
@@ -113,7 +108,7 @@ m.grepFeedIndexList = function (len) {
     return grepFeeds
 }
 
-m.grepEntriesIndexList = function (len) {
+Feeds.prototype.grepEntriesIndexList = function (len) {
     var me = this
     var currentFeed = this.currentFeed()
 
@@ -140,11 +135,4 @@ m.grepEntriesIndexList = function (len) {
     return grepEntries
 }
 
-
-module.exports = function (proto) {
-    var F = function () {}
-    F.prototype = proto
-    var m = new F
-    constructor.call(m)
-    return m
-}(m)
+module.exports = Feeds

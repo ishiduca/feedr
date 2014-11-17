@@ -17,15 +17,16 @@ if you want to run on a different port, overrides `config.server.port` in `packa
 
 ## Keybind
 
-```
 - s: next feed
 - a: previous feed
 - j: next entry
 - k: previous entry
 - r: request to rebuild crawler to server
 - p: put/remove pin mark
+- o: change mode pin/normal
 - v: open permalink
-```
+- h: show help
+
 
 ## Requirements
 

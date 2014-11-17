@@ -7,6 +7,5 @@ client:
   - entryの一覧をどう見せるか
   - feedsの一覧をどう見せるか
   - pinの一覧をどう見せるか
-  - pinしたエントリーの表示
 app:
   - lessでcss

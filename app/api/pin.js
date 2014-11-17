@@ -1,7 +1,9 @@
 'use strict'
-module.exports = function (db, feeds, ract) {
-    return function () {
-        var entry = feeds.currentEntry()
+var Feeds = require('../model').Feeds
+
+module.exports = function (m, db, ract) {
+    return function (ev) {
+        var entry = m.current().currentEntry()
         if (! entry) return onError(new Error('"entry" not found'))
 
         var id = entry.link
@@ -17,6 +19,7 @@ module.exports = function (db, feeds, ract) {
             db.del(id, function (err) {
                 entry.isPin = false
                 ract.set('current', entry)
+                resetFavs()
                 if (err) onError(err)
             })
         }
@@ -25,12 +28,20 @@ module.exports = function (db, feeds, ract) {
             db.put(id, entry, function (err) {
                 entry.isPin = true
                 ract.set('current', entry)
+                resetFavs()
                 if (err) onError(err)
             })
         }
 
         function onError (err) {
             console.log(err.stack)
+        }
+
+        function resetFavs () {
+            m.modes[1] = new Feeds
+            db.createValueStream().on('data', function (entry) {
+                m.modes[1].pushEntry(entry)
+            })
         }
     }
 }

@@ -1,3 +1,3 @@
 'use strict'
 
-module.exports.feeds   = require('./feeds')
+module.exports.Feeds = require('./feeds')

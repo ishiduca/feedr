@@ -2,6 +2,7 @@
 var Ractive = require('ractive')
 var levelup = require('levelup')
 var localstorage = require('localstorage-down')
+var Feeds   = require('../model').Feeds
 
 var ract = new Ractive({
     el: '#main'
@@ -13,13 +14,33 @@ var db = levelup('Pin', {
   , valueEncoding: 'json'
 })
 
-var feeds = require('../model').feeds
-module.exports.open_tab  = require('./open_tab')(feeds)
-module.exports.pin       = require('./pin')(db, feeds, ract)
+var feeds = new Feeds
+var favs  = new Feeds
 
-var ctrl  = require('./feeds')(db, feeds, ract)
-module.exports.entry     = ctrl.entry
-module.exports.nextEntry = ctrl.nextEntry
-module.exports.prevEntry = ctrl.prevEntry
-module.exports.nextFeed  = ctrl.nextFeed
-module.exports.prevFeed  = ctrl.prevFeed
+var m = {
+    currentIndex: 0
+  , modes: [feeds, favs]
+  , current: function () {
+        return this.modes[ this.currentIndex ]
+    }
+  , changeMode: function () {
+        var len = this.modes.length
+        this.currentIndex = (this.currentIndex + 1) % len
+    }
+}
+
+var ctrl = require('./feeds')(m, db, ract)
+
+module.exports.open_tab   = require('./open_tab')(m)
+module.exports.pin        = require('./pin')(m, db, ract)
+
+module.exports.entry      = ctrl.entry
+module.exports.nextEntry  = ctrl.nextEntry
+module.exports.prevEntry  = ctrl.prevEntry
+module.exports.nextFeed   = ctrl.nextFeed
+module.exports.prevFeed   = ctrl.prevFeed
+module.exports.changeMode = ctrl.changeMode
+
+db.createValueStream().on('data', function (entry) {
+    favs.pushEntry(entry)
+})

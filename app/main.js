@@ -15,7 +15,6 @@ sock
     .define('entry',              api.main.entry)
 
 var keyAct = keymap()
-
 keyAct
     .on('r', 'rebuild crawler',  api.rebuild.bind(sock))
     .on('j', 'show next entry',            api.main.nextEntry)
@@ -23,5 +22,6 @@ keyAct
     .on('s', 'go to next feed',            api.main.nextFeed)
     .on('a', 'go to prev feed',            api.main.prevFeed)
     .on('p', 'do "pin" or "un-pin"',       api.main.pin)
+    .on('o', 'change mode pin/normal',     api.main.changeMode)
     .on('v', 'open link of current entry', api.main.open_tab)
     .on('h', 'show help', api.help.bind(keyAct.helpStrs))
