@@ -7,3 +7,5 @@ source/*
 logs/*
 t/mydb
 public/js/bundle.js
+app.old/
+app2/
