@@ -1,6 +1,6 @@
 {
   "name": "feedr",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "scripts": {
     "test": "tap t/*.js",
     "testling" : "browserify app/t/*.js | testling",

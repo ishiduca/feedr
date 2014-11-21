@@ -2,6 +2,7 @@
 function FeedHandler () {
     this.feeds = {}
     this.feedIndex = []
+    this.cursorInit()
 }
 FeedHandler.prototype.cursorInit = function () {
     this.cursor = {
@@ -39,11 +40,12 @@ FeedHandler.prototype.shift = function (entry) {
     return false
 }
 FeedHandler.prototype.getCurrentFeed  = function () {
-    return this.feeds[ this.feedIndex[this.cursor.feed] ]
+    var index = this.feedIndex[this.cursor.feed]
+    return index ? this.feeds[ this.feedIndex[this.cursor.feed] ] : []
 }
 FeedHandler.prototype.getCurrentEntry = function () {
     var feed = this.getCurrentFeed()
-    return feed[this.cursor.entry]
+    return feed[this.cursor.entry] || []
 }
 FeedHandler.prototype.countFeeds = function () {
     return this.feedIndex.length

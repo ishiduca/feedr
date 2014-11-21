@@ -2,7 +2,8 @@
 module.exports = function openTab (m) {
 	return function (ev) {
         var a    = document.createElement('a')
-        a.href   = m.current().getCurrentEntry().link
+        a.href   = m.getCurrentEntry().link
+        //a.href   = m.current().getCurrentEntry().link
         a.target = '_blank'
 
         var evnt = document.createEvent('MouseEvents')

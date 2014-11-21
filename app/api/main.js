@@ -23,47 +23,41 @@ module.exports.entry = function (entry) {
     unread.push(entry, function (err) {
         if (err) return onError(err)
 
-        var c = feeds.current()
-        ract.set('pointer', pointer(c))
-        ract.set('feedlist', c.grepFeeds(grepLength))
-        if (! ract.get('current')) ract.set('current',  c.getCurrentEntry())
+        ract.set('pointer', pointer(feeds))
+        ract.set('feedlist', feeds.grepFeeds(grepLength))
+        if (! ract.get('current')) ract.set('current', feeds.getCurrentEntry())
     })
 }
 module.exports.pin = function () {
-    var c = feeds.current()
-    var entry = c.getCurrentEntry()
+    var entry = feeds.getCurrentEntry()
     favs.exists(entry, function (err, exists) {
-        exists ? favs.del(entry, done)//favs.shift(entry, done)
+        exists ? favs.del(entry, done) //favs.shift(entry, done)
                : favs.push(entry, done)
     })
     function done (err) {
         if (err) return onError(err)
-        help.apply(c)
+        help.apply(feeds)
     }
 }
 module.exports.changeMode = function () {
     feeds.change()
-    help.apply(feeds.current(), [true])
+    help.apply(feeds, [true])
 }
 module.exports.nextEntry = function () {
-    var c = feeds.current()
-    c.nextEntry()
-    help.apply(c)
+    feeds.nextEntry()
+    help.apply(feeds)
 }
 module.exports.prevEntry = function () {
-    var c = feeds.current()
-    c.prevEntry()
-    help.apply(c)
+    feeds.prevEntry()
+    help.apply(feeds)
 }
 module.exports.nextFeed = function () {
-    var c = feeds.current()
-    c.nextFeed()
-    help.apply(c, [true])
+    feeds.nextFeed()
+    help.apply(feeds, [true])
 }
 module.exports.prevFeed = function () {
-    var c = feeds.current()
-    c.prevFeed()
-    help.apply(c, [true])
+    feeds.prevFeed()
+    help.apply(feeds, [true])
 }
 
 function help (requireFeedList) {
@@ -82,8 +76,7 @@ function help (requireFeedList) {
 
 function pointer (c) {
     var p = {}
-    ;('countCurrentEntries countFeeds posCurrentEntry posFeed').split(' ')
-    .forEach(function (name) {
+    ;('countCurrentEntries countFeeds posCurrentEntry posFeed').split(' ').forEach(function (name) {
         p[name] = c[name]()
     })
     return p

@@ -9,6 +9,12 @@ test('エントリーの取得と初期化', function (t) {
     var m = new Feed
     t.ok(m, 'var model = new Feed')
 
+    t.test('entryを持たない状態で、.getCurrentFeed(), .getCurrentEntry()', function (t) {
+        t.deepEqual(m.getCurrentFeed(), [], 'model.getCurrentFeed() === []')
+        t.deepEqual(m.getCurrentEntry(), {}, 'model.getCurrentEntry() === {}')
+        t.end()
+    })
+
     var entry = {
         xmlurl: '000'
       , title: '000 title'

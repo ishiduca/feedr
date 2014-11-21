@@ -19,7 +19,7 @@ function Feed (name) {
         me.feed.push(entry)
     })
     .on('end', function () {
-        me.feed.cursorInit()
+        me.feed.cursor || me.feed.cursorInit()
     })
 }
 
@@ -28,23 +28,20 @@ Feed.prototype.push = function (entry, done) {
     this.exists(entry, function (err, exists) {
         if (err) return done(err)
         if (exists) return done(null)
+
+        var dt = entry.date || entry.pubdate || entry.pubDate
+        if (! dt) {
+            me.feed.push(entry)
+            return done()
+        }
+
         me.db.put(entry.link, entry, function (err) {
-            if (! err) me.feed.push(entry)
+            //if (! err)
+                me.feed.push(entry)
             done(err)
         })
     })
 }
-//Feed.prototype.shift = function (entry, done) {
-//    var me = this
-//    var id = entry.link
-//    if (! id) return done(new Error('"entry.link" not found - ' + entry.xmlurl))
-//
-//    this.db.del(id, function (err) {
-//        if (err) return done(err)
-//        me.feed.shift(entry)
-//        done(null)
-//    })
-//}
 Feed.prototype.del = function (entry, done) {
     var me = this
     var id = entry.link
@@ -56,12 +53,12 @@ Feed.prototype.del = function (entry, done) {
     })
 }
 Feed.prototype.shift = function (entry, done) {
-	var me = this
-	this.del(entry, function (err) {
-		if (err) return done(err)
-		me.feed.shift(entry)
-		done(null)
-	})
+    var me = this
+    this.del(entry, function (err) {
+        if (err) return done(err)
+        me.feed.shift(entry)
+        done(null)
+    })
 }
 Feed.prototype.exists = function (entry, done) {
     var me = this
