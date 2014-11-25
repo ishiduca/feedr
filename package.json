@@ -1,6 +1,6 @@
 {
   "name": "feedr",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "scripts": {
     "test": "tap t/*.js",
     "testling": "browserify app/t/*.js | testling",
@@ -8,6 +8,7 @@
     "app": "npm run build && NODE_PATH=lib node app.js &"
   },
   "dependencies": {
+    "combokeys": "^2.0.0",
     "feedparser": "^0.19.2",
     "filed": "^0.1.0",
     "hogan.js": "^3.0.2",
