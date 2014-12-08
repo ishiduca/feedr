@@ -1,7 +1,7 @@
 var app    = require('app')
 var socket = require('app_socket')
 var pack   = require('getpack')()
-var port   = pack.config.server.port
+var port   = process.env.PORT || pack.config.server.port
 
 socket(app.server)
 
